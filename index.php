@@ -25,11 +25,12 @@ if(isset($_SESSION)){
                 <input type="email" name="email" class="inputField" value="<?php if(isset($_COOKIE["email"])) echo $_COOKIE["email"];?>" placeholder="Email">
                 <input type="password" name="password" class="inputField" value="<?php if(isset($_COOKIE["password"])) echo $_COOKIE["password"];?>" placeholder="Password"><br><br>
                 <a id="forgotPsw" href="forgotPsw.php">Forgot password?</a><br>
-                <input type="checkbox" name="keepLogged" id="keepLogged" class="checkBox"><label for="keepLogged">Keep me logged in</label>
+                <input type="checkbox" name="rememberMe" id="rememberMe" class="checkBox"><label for="rememberMe">Remember credentials</label>
                 <button type="submit" class="submitBtn">Log in</button>
             </form>
             <form action="signup.php" method="POST" onSubmit="return validaSignup(this)" id="signup" class="inputs">
                 <span class="errorSpan" id="errorSpanSignup" style="display:none">Incorrect format of one or more fields</span>
+                <input type="text" name="name" class="inputField" placeholder="Name and surname">
                 <input type="text" name="username" class="inputField" placeholder="Username (alphanumeric 5-20 characters)">
                 <input type="email" name="email" class="inputField" placeholder="Email (typical format)">
                 <input type="password" name="password" class="inputField" placeholder="Password (1 number, 1 upper, 1 lower, 8 chars)">

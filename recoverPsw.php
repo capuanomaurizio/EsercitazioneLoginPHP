@@ -2,7 +2,7 @@
     $json = file_get_contents("utenti.json");
     $utenti = json_decode($json);
     foreach ($utenti as $utente){
-        $u = new Utente($utente->username, $utente->email, $utente->password);
+        $u = new Utente($utente->name, $utente->username, $utente->email, $utente->password);
         if(strcmp($u->getEmail(), $_POST['email'])==0){
             $utenteCorrente = $u;
             $utenteRiconosciuto = true;
@@ -14,21 +14,6 @@
 <head>
     <title>Recover password</title>
     <style>@import url(style.css);</style>
-    <script>
-        function countdown(){
-            var timeleft = 7;
-            var downloadTimer = setInterval(function(){
-                if(timeleft <= 0){
-                    clearInterval(downloadTimer);
-                    document.getElementById("countdown").innerHTML = "Redirecting...";
-                }
-                else {
-                    document.getElementById("countdown").innerHTML = "Redirecting in " + timeleft + " seconds...";
-                }
-                timeleft -= 1;
-            }, 1000);
-        }
-    </script>
 </head>
 <body onLoad="countdown()">
     <div id="container">
@@ -36,8 +21,8 @@
             <div class="outputs">
                 <?php
                 if(isset($utenteRiconosciuto)){
-                    echo "<span class=\"sentences\">Welcome </span><h3>".$utenteCorrente->username."</h3><br><br><br>";
-                    echo "<span class=\"sentences\">your password is:  </span><h3>".$utenteCorrente->password."</h3><br><br><br><br><br><br><br><br><br><br><br><br><br>";
+                    echo "<span class=\"sentences\">Welcome </span><h3>".$u->getUsername()."</h3><br><br><br>";
+                    echo "<span class=\"sentences\">your password is:  </span><h3>".$u->getPassword()."</h3><br><br><br><br><br><br><br><br><br><br><br><br><br>";
                     echo "<input type=\"button\" value=\"Login page\" class=\"submitBtn\" onClick=\"window.location.href='./'\">";
                 }
                 else{
@@ -54,5 +39,20 @@
             </div>
         </div>
     </div>
+    <script>
+        function countdown(){
+            var timeleft = 7;
+            var downloadTimer = setInterval(function(){
+                if(timeleft <= 0){
+                    clearInterval(downloadTimer);
+                    document.getElementById("countdown").innerHTML = "Redirecting...";
+                }
+                else {
+                    document.getElementById("countdown").innerHTML = "Redirecting in " + timeleft + " seconds...";
+                }
+                timeleft -= 1;
+            }, 1000);
+        }
+    </script>
 </body>
 </html>

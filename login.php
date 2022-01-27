@@ -3,10 +3,10 @@
     $json = file_get_contents("utenti.json");
     $utenti = json_decode($json);
     foreach ($utenti as $utente){
-        $u = new Utente($utente->username, $utente->email, $utente->password);
+        $u = new Utente($utente->name, $utente->username, $utente->email, $utente->password);
         if(strcmp($u->getEmail(), $_POST['email'])==0){
             $utenteCorrente = $u;
-            if(strcmp($u->getPassword, $_POST['password'])==0){
+            if(strcmp($u->getPassword(), $_POST['password'])==0){
                 $utenteLoggato = true;
                 session_start();
                 $_SESSION["user"] = $u;
@@ -23,18 +23,17 @@
 <body>
     <div id="container">
         <div id="content">
-            <div class="outputs">
+            <div class="outputs" style="bottom: 30px">
                 <?php
                 if(isset($utenteLoggato)){
-                    echo "<span class=\"sentences\">Welcome </span><h3>".$utenteCorrente->username."</h3><br><br><br>";
-                    echo "<span class=\"sentences\">your email is: </span><h3>".$utenteCorrente->email."</h3><br><br><br>";
+                    echo "<span class=\"sentences\">Welcome </span><h3>".$utenteCorrente->getUsername()."</h3><br><br><br>";
                     ?>
-                    <span class="sentences">your password is: </span><h3>😎</h3><br><br><br><br><br><br><br><br>
-                    <input type="button" value="Logout" class="submitBtn" onClick="window.location.href='./'">
+                    <input type="button" value="View profile info" class="submitBtn" style="position: absolute; bottom: 100px; margin: 30px 54px 0 54px;" onClick="window.location.href='./profileInfo.php'">
+                    <input type="button" value="Logout" class="submitBtn" style="position: absolute; bottom: 30px; margin: 30px 54px 0 54px;" onClick="window.location.href='./'">
                     <?php
-                    if(isset($_POST["keepLogged"])){
-                        setcookie("email", $utenteCorrente->email, time()+3600);
-                        setcookie("password", $utenteCorrente->password, time()+3600);
+                    if(isset($_POST["rememberMe"])){
+                        setcookie("email", $utenteCorrente->getEmail(), time()+3600);
+                        setcookie("password", $utenteCorrente->getPassword(), time()+3600);
                     }
                 }
                 else{

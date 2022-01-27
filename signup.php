@@ -4,13 +4,13 @@
     $utenti = json_decode($json);
     $utenteEsistente = false;
     foreach ($utenti as $utente) {
-        $u = new Utente($utente->username, $utente->email, $utente->password);
+        $u = new Utente($utente->name, $utente->username, $utente->email, $utente->password);
         if(strcmp($u->getEmail(), $_POST['email'])==0){
             $utenteEsistente = true;
         }
     }
     if($utenteEsistente==false){
-        $nuovoUtente = new Utente($_POST['username'], $_POST['email'], $_POST['password']);
+        $nuovoUtente = new Utente($_POST['name'], $_POST['username'], $_POST['email'], $_POST['password']);
         session_start();
         $_SESSION["user"] = $nuovoUtente;
         array_push($utenti, $nuovoUtente);
@@ -41,9 +41,9 @@
                 }
                 else{
                     echo "<span class=\"sentences\">Welcome </span><h3>".$_POST['username']."</h3><br><br><br>";
-                    echo "<span class=\"sentences\">your email is: </span><h3>".$_POST['email']."</h3><br><br><br>";
-                    echo "<span class=\"sentences\">your password is: </span><h3>".$_POST['password']."</h3><br><br><br><br><br><br><br><br>";
                     ?>
+                    <br><br><br><br><br><br><br><br><br>
+                    <input type="button" value="View profile info" class="submitBtn" onClick="window.location.href='./profileInfo.php'">
                     <input type="button" value="Logout" class="submitBtn" onClick="window.location.href='./'">
                     <?php
                 }
